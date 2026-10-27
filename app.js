@@ -1,4 +1,3 @@
-
 const $=s=>document.querySelector(s),root=document.documentElement;
 const css=n=>getComputedStyle(root).getPropertyValue(n).trim();
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -46,8 +45,8 @@ function hero(){
 async function drawChart(){
   try{await ensureChart()}catch(e){return}
   const h=D.taiex_history;if(!h||!h.dates||!$('#cT'))return;
-  const m20=h.close.map((_,i,a)=>i<19?null:a.slice(i-19,i+1).reduce((x,y)=>x+y,0)/20),s=Math.max(0,h.dates.length-days);
-  const ctx=$('#cT').getContext('2d'),g=ctx.createLinearGradient(0,0,0,320),L=css('--lamp');
+  const m20=h.close.map((_,i,a)=>i<19?null:a.slice(i-19,i+1).reduce((x,y)=>x+y,0)/20),s=Math.max(0,h.dates.length-days),span=h.dates.length-s,narrow=$('#cT').clientWidth<520;
+  const ctx=$('#cT').getContext('2d'),g=ctx.createLinearGradient(0,0,0,ctx.canvas.clientHeight||320),L=css('--lamp');
   g.addColorStop(0,L+'55');g.addColorStop(1,L+'00');
   chart&&chart.destroy();
   chart=new Chart(ctx,{type:'line',data:{labels:h.dates.slice(s),datasets:[
@@ -55,7 +54,7 @@ async function drawChart(){
     {label:'MA20',data:m20.slice(s),borderColor:css('--mute'),borderWidth:1,borderDash:[4,4],pointRadius:0,tension:.25}]},
     options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
     plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(12,10,30,.92)',borderColor:'rgba(255,255,255,.12)',borderWidth:1,padding:10,titleColor:'#bbb',bodyColor:'#fff'}},
-    scales:{x:{ticks:{color:css('--mute'),maxTicksLimit:6,maxRotation:0},grid:{display:false},border:{display:false}},y:{position:'right',ticks:{color:css('--mute')},grid:{color:css('--edge')},border:{display:false}}}}});
+    scales:{x:{ticks:{color:css('--mute'),maxTicksLimit:narrow?4:6,maxRotation:0,minRotation:0,autoSkip:true,autoSkipPadding:narrow?28:14,align:narrow?'inner':'center',callback(v){const d=String(this.getLabelForValue(v)),m=/^(\d{4})-(\d{2})-(\d{2})/.exec(d);if(!m)return d;return span>150?m[1].slice(2)+'/'+m[2]:m[2]+'/'+m[3]}},grid:{display:false},border:{display:false}},y:{position:'right',ticks:{color:css('--mute')},grid:{color:css('--edge')},border:{display:false}}}}});
 }
 function ranges(){
   const R=[['1M',22],['3M',66],['6M',132],['1Y',999]];
