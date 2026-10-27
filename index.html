@@ -185,10 +185,15 @@ footer{color:var(--faint);font-size:12px;padding:36px 0 40px;line-height:1.7}
   <section class="panel" data-topic="watch"><h2>多標的報酬比較 <span class="sub">最多六檔・共同交易日對齊</span></h2><div id="compareChoices" class="chips"></div><p id="compareNote" class="note">從詳細面板勾選「加入比較」。</p><div id="compareBox" hidden><canvas id="compareChart" aria-label="多標的價格報酬比較" role="img"></canvas></div></section>
 
   <!-- 市場深度 -->
-  <section class="panel" data-topic="depth"><h2>台灣市場深度 <span class="sub" id="breadth"></span></h2><div class="split"><div><h3>融資融券</h3><div id="margin"></div></div><div><h3>台指期法人未平倉</h3><div id="futures"></div></div></div></section>
-  <section class="panel" data-topic="depth"><h2>類股指數熱力圖</h2><div id="sectors" class="heatmap"></div><div id="sectorAge" class="age"></div></section>
-  <section class="grid g2" data-topic="depth"><div class="panel"><h2>台灣總經</h2><div id="taiwanMacro"></div></div><div class="panel"><h2>事件日曆</h2><div id="events"></div></div></section>
-  <section class="grid g2" data-topic="depth"><div class="panel"><h2>量價異常 <span class="sub">依明確門檻篩選</span></h2><div id="anomalies"></div></div><div class="panel"><h2>收盤報告存檔</h2><div id="reports"></div></div></section>
+  <section class="panel" data-topic="depth"><h2>市場脈動 <span class="sub" id="breadth"></span></h2><div id="depthHead"></div></section>
+  <section class="panel folds" data-topic="depth">
+    <section class="fold open" data-fold="sectors"><button type="button" class="fold-h" aria-expanded="true"><span class="fold-caret" aria-hidden="true">▸</span><h3>類股指數熱力圖</h3></button><div class="fold-b"><div id="sectorsWrap"></div></div></section>
+    <section class="fold open" data-fold="instdepth"><button type="button" class="fold-h" aria-expanded="true"><span class="fold-caret" aria-hidden="true">▸</span><h3>融資融券・台指期法人未平倉</h3></button><div class="fold-b"><div class="split"><div><h4>融資融券</h4><div id="marginWrap"></div></div><div><h4>台指期法人未平倉</h4><div id="futuresWrap"></div></div></div></div></section>
+    <section class="fold" data-fold="events"><button type="button" class="fold-h" aria-expanded="false"><span class="fold-caret" aria-hidden="true">▸</span><h3>事件日曆</h3></button><div class="fold-b" hidden><div id="eventsWrap"></div></div></section>
+    <section class="fold" data-fold="macro"><button type="button" class="fold-h" aria-expanded="false"><span class="fold-caret" aria-hidden="true">▸</span><h3>台灣總經</h3></button><div class="fold-b" hidden><div id="taiwanMacroWrap"></div></div></section>
+    <section class="fold" data-fold="anomalies"><button type="button" class="fold-h" aria-expanded="false"><span class="fold-caret" aria-hidden="true">▸</span><h3>量價異常</h3></button><div class="fold-b" hidden><div id="anomaliesWrap"></div></div></section>
+    <section class="fold" data-fold="reports"><button type="button" class="fold-h" aria-expanded="false"><span class="fold-caret" aria-hidden="true">▸</span><h3>收盤報告存檔</h3></button><div class="fold-b" hidden><div id="reportsWrap"></div></div></section>
+  </section>
 
   <p id="pageStatus" role="status" class="note"></p>
   <footer>資料來源：Yahoo Finance、台灣證券交易所、台灣期貨交易所、FRED、Google 新聞與 Yahoo 奇摩股市 RSS。資料可能延遲，僅供參考，不構成投資建議。紅漲綠跌，為台灣慣例。</footer>
