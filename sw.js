@@ -1,4 +1,4 @@
-const CACHE='tw-market-v3.1-public';
+const CACHE='tw-market-v3.2-public';
 const SHELL=['./','index.html','app.js','indicators.js','enhancements.css','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png','vendor/chart.umd.min.js'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('tw-market-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
